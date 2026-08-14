@@ -1,1 +1,24 @@
 # LP3-TAREA-1
+import java.util.Scanner;
+
+public class ConvertirASegundos {
+    
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("Ingrese las horas:");
+        int horas = sc.nextInt();
+        
+        System.out.println("Ingrese los minutos:");
+        int minutos = sc.nextInt();
+        
+        System.out.println("Ingrese los segundos:");
+        int segundos = sc.nextInt();
+        
+        int totalSegundos = (horas * 3600) + (minutos * 60) + segundos;
+        
+        System.out.println("El equivalente en segundos es: " + totalSegundos);
+        
+        sc.close();
+    }
+}
