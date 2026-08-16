@@ -9,24 +9,24 @@ public class ejercicio_2 {
         Scanner entrada = new Scanner(System.in);
         int[] numeros = new int[10];
 
-        System.out.print("Ingrese el número 1: ");
+        System.out.print("ingrese el numero 1: ");
         numeros[0] = entrada.nextInt();
 
         for (int i = 1; i < 10; i++) {
 
-            System.out.print("Ingrese el número " + (i + 1) + ": ");
+            System.out.print("ingrese el numero " + (i + 1) + ": ");
             numeros[i] = entrada.nextInt();
 
             while (numeros[i] <= numeros[i - 1]) {
 
-                System.out.println("Número inválido. Debe ser mayor que " + numeros[i - 1]);
+                System.out.println("el numero tiene que ser mayor que " + numeros[i - 1]);
 
-                System.out.print("Ingrese nuevamente el número " + (i + 1) + ": ");
+                System.out.print("ingrese denuevo un numero " + (i + 1) + ": ");
                 numeros[i] = entrada.nextInt();
             }
         }
 
-        System.out.println("Números ingresados:");
+        System.out.println("los numeros son:");
 
         for (int i = 0; i < 10; i++) {
             System.out.println(numeros[i]);
