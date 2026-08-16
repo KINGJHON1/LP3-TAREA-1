@@ -1,0 +1,36 @@
+package ejercicios_propuestos;
+
+import java.util.Scanner;
+
+public class ejercicio_5 {
+
+    public static double CargoTotal(int horas) {
+
+        double cargo;
+
+        if (horas == 0) {
+            cargo = 0;
+        } else if (horas == 1) {
+            cargo = 3.00;
+        } else {
+            cargo = 3.00 + (horas - 1) * 0.50;
+        }
+        
+        if (cargo > 12.00) {
+            cargo = 12.00;
+        }
+        return cargo;
+    }
+
+    public static void main(String[] args) {
+
+        Scanner entrada = new Scanner(System.in);
+
+        int horas;
+
+        System.out.print("ingrese el numero de horas:  ");
+        horas = entrada.nextInt();
+
+        System.out.println("el cargo es "+ CargoTotal(horas));
+    }
+}
