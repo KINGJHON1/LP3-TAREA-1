@@ -1,0 +1,52 @@
+Python:
+
+python
+def suma_arreglo(arr):
+    total = 0
+    for numero in arr:
+        total += numero
+    return total
+
+# Prueba
+numeros = [1, 2, 3, 4, 5]
+print("La suma es:", suma_arreglo(numeros))
+
+C++:
+
+cpp
+#include <iostream>
+using namespace std;
+
+int sumaArreglo(int arr[], int tam) {
+    int total = 0;
+    for (int i = 0; i < tam; i++) {
+        total += arr[i];
+    }
+    return total;
+}
+
+int main() {
+    int numeros[] = {1, 2, 3, 4, 5};
+    int tam = 5;
+    cout << "La suma es: " << sumaArreglo(numeros, tam) << endl;
+    return 0;
+}
+
+Java (Eclipse):
+
+java
+public class SumaArreglo {
+    
+    public static int sumaArreglo(int[] arr) {
+        int total = 0;
+        for (int i = 0; i < arr.length; i++) {
+            total += arr[i];
+        }
+        return total;
+    }
+    
+    public static void main(String[] args) {
+        int[] numeros = {1, 2, 3, 4, 5};
+        System.out.println("La suma es: " + sumaArreglo(numeros));
+    }
+}
