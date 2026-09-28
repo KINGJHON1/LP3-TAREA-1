@@ -1,5 +1,3 @@
-package sistema;
-
 public class Main {
 
     public static <F, S> void imprimirPar(Par<F, S> par) {
