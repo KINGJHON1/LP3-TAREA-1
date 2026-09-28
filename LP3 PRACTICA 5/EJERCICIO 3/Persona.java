@@ -1,5 +1,3 @@
-package sistema;
-
 public class Persona {
 
     private String nombre;
@@ -8,7 +6,6 @@ public class Persona {
         this.nombre = nombre;
     }
 
-    @Override
     public String toString() {
         return nombre;
     }
