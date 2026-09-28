@@ -1,5 +1,3 @@
-package sistema;
-
 public class Par<F, S> {
 
     private F primero;
@@ -29,5 +27,10 @@ public class Par<F, S> {
     @Override
     public String toString() {
         return "(Primero: " + primero + ", Segundo: " + segundo + ")";
+    }
+
+    public boolean esIgual(Par<F, S> otro) {
+        return primero.equals(otro.primero)
+                && segundo.equals(otro.segundo);
     }
 }
