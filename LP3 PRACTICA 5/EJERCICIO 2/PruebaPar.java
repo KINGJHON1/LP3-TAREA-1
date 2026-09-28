@@ -1,5 +1,3 @@
-package sistema;
-
 public class PruebaPar {
 
     public static void main(String[] args) {
