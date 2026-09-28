@@ -24,7 +24,6 @@ public class Par<F, S> {
         this.segundo = segundo;
     }
 
-    @Override
     public String toString() {
         return "(Primero: " + primero + ", Segundo: " + segundo + ")";
     }
