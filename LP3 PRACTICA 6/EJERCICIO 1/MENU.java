@@ -1,24 +1,81 @@
-import controlador.CarritoController;
-import modelo.Tienda;
-import vista.VistaConsola;
+package modelo;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
-public class Main {
-    public static void main(String[] args) {
-        Tienda tienda = new Tienda();
-        cargarProductosDeEjemplo(tienda);
 
-        VistaConsola vista = new VistaConsola();
-        CarritoController controlador = new CarritoController(tienda, vista);
-        controlador.iniciar();
+public class Carrito {
+    private final Map<Integer, ItemCarrito> items = new LinkedHashMap<>();
+    private Descuento descuento;
+    private ZonaEnvio zona;
+
+    public void agregar(Producto producto, int cantidad) {
+        if (cantidad <= 0) {
+            throw new IllegalArgumentException("La cantidad debe ser mayor que cero.");
+        }
+        ItemCarrito existente = items.get(producto.getId());
+        int totalSolicitado = cantidad + (existente == null ? 0 : existente.getCantidad());
+        if (totalSolicitado > producto.getStock()) {
+            throw new IllegalStateException("Stock insuficiente: solo hay " + producto.getStock()
+                    + " unidad(es) de \"" + producto.getNombre() + "\".");
+        }
+        if (existente == null) {
+            items.put(producto.getId(), new ItemCarrito(producto, cantidad));
+        } else {
+            existente.sumar(cantidad);
+        }
     }
 
-    private static void cargarProductosDeEjemplo(Tienda tienda) {
-        tienda.getInventario().agregar("Laptop 14\"", new BigDecimal("2499.00"), 5);
-        tienda.getInventario().agregar("Mouse inalámbrico", new BigDecimal("45.90"), 30);
-        tienda.getInventario().agregar("Teclado mecánico", new BigDecimal("189.50"), 12);
-        tienda.getInventario().agregar("Audífonos Bluetooth", new BigDecimal("129.00"), 20);
-        tienda.getInventario().agregar("Cable USB-C", new BigDecimal("19.90"), 50);
+    public void eliminar(int idProducto) {
+        if (items.remove(idProducto) == null) {
+            throw new IllegalArgumentException("Ese producto no está en el carrito.");
+        }
+    }
+
+    public void vaciar() {
+        items.clear();
+        descuento = null;
+        zona = null;
+    }
+
+    public boolean estaVacio() { return items.isEmpty(); }
+
+    public List<ItemCarrito> getItems() { return new ArrayList<>(items.values()); }
+
+    public Descuento getDescuento() { return descuento; }
+    public void setDescuento(Descuento descuento) { this.descuento = descuento; }
+
+    public ZonaEnvio getZona() { return zona; }
+    public void setZona(ZonaEnvio zona) { this.zona = zona; }
+
+    public BigDecimal subtotal() {
+        BigDecimal suma = BigDecimal.ZERO;
+        for (ItemCarrito item : items.values()) {
+            suma = suma.add(item.subtotal());
+        }
+        return suma;
+    }
+
+    public BigDecimal montoDescuento() {
+        return descuento == null ? BigDecimal.ZERO : descuento.calcular(subtotal());
+    }
+
+    public BigDecimal subtotalConDescuento() {
+        return subtotal().subtract(montoDescuento());
+    }
+
+    
+    public BigDecimal costoEnvio() {
+        if (zona == null || items.isEmpty()) {
+            return BigDecimal.ZERO;
+        }
+        return zona.calcular(subtotalConDescuento());
+    }
+
+    public BigDecimal total() {
+        return subtotalConDescuento().add(costoEnvio());
     }
 }
