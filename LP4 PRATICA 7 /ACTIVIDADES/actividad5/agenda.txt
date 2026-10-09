@@ -1,0 +1,4 @@
+Juan Perez,987654321,Av. Lima 123
+Maria Lopez,912345678,Jr. Cusco 456
+Carlos Ramos,955443322,Calle Mercaderes 78
+Ana Torres,944556677,Av. Ejercito 910
