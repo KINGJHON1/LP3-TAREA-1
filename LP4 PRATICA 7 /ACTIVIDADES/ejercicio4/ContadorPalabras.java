@@ -1,29 +1,34 @@
-
+```java
 package ejercicio4;
 
 import java.io.*;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JFileChooser;
 
 public class ContadorPalabras {
 
     public static void main(String[] args) {
 
-        Scanner teclado = new Scanner(System.in);
+        JFileChooser selector = new JFileChooser();
 
-        System.out.print("Escribe la ruta del archivo: ");
-        String ruta = teclado.nextLine();
+        int opcion = selector.showOpenDialog(null);
 
-        File archivo = new File(ruta);
+        if (opcion != JFileChooser.APPROVE_OPTION) {
+            System.out.println("No seleccionaste un archivo.");
+            return;
+        }
+
+        File archivo = selector.getSelectedFile();
 
         int lineas = 0;
-        int caracteres = 0;
         int palabras = 0;
+        int caracteres = 0;
 
         HashMap<String, Integer> frecuencia = new HashMap<>();
 
-        try {
-            BufferedReader lector = new BufferedReader(
-                    new FileReader(archivo));
+        try (BufferedReader lector =
+                new BufferedReader(new FileReader(archivo))) {
 
             String linea;
 
@@ -32,18 +37,22 @@ public class ContadorPalabras {
                 lineas++;
                 caracteres += linea.length();
 
-                String[] lista = linea.split("\\s+");
+                linea = linea + " ";
 
-                for (String palabra : lista) {
+                String palabra = "";
 
-                    if (!palabra.isEmpty()) {
+                for (int i = 0; i < linea.length(); i++) {
 
-                        palabra = palabra.replaceAll(
-                                "[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9]", "");
+                    char c = linea.charAt(i);
+
+                    if (Character.isLetterOrDigit(c)) {
+                        palabra = palabra + c;
+                    } else {
 
                         if (!palabra.isEmpty()) {
-                            palabras++;
+
                             palabra = palabra.toLowerCase();
+                            palabras++;
 
                             if (frecuencia.containsKey(palabra)) {
                                 frecuencia.put(palabra,
@@ -51,12 +60,12 @@ public class ContadorPalabras {
                             } else {
                                 frecuencia.put(palabra, 1);
                             }
+
+                            palabra = "";
                         }
                     }
                 }
             }
-
-            lector.close();
 
             double promedio = 0;
 
@@ -65,23 +74,30 @@ public class ContadorPalabras {
             }
 
             System.out.println("\n--- RESULTADOS ---");
-            System.out.println("Lineas: " + lineas);
-            System.out.println("Palabras: " + palabras);
-            System.out.println("Caracteres: " + caracteres);
-            System.out.printf("Promedio por linea: %.2f%n", promedio);
+            System.out.println("Archivo: " + archivo.getName());
+            System.out.println("Total de lineas: " + lineas);
+            System.out.println("Total de palabras: " + palabras);
+            System.out.println("Total de caracteres: " + caracteres);
 
-            System.out.println("\nFrecuencia de palabras:");
+            System.out.printf(
+                "Promedio de palabras por linea: %.2f%n",
+                promedio
+            );
 
-            for (String palabra : frecuencia.keySet()) {
+            System.out.println("\nFrecuencia de cada palabra:");
+
+            for (Map.Entry<String, Integer> dato :
+                    frecuencia.entrySet()) {
+
                 System.out.println(
-                    palabra + ": " + frecuencia.get(palabra));
+                    dato.getKey() + ": " + dato.getValue()
+                );
             }
 
         } catch (IOException e) {
             System.out.println("Error al leer el archivo.");
         }
-
-        teclado.close();
     }
 }
+```
 
