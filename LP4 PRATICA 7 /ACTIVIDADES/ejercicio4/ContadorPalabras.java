@@ -1,4 +1,4 @@
-```java
+
 package ejercicio4;
 
 import java.io.*;
@@ -99,5 +99,5 @@ public class ContadorPalabras {
         }
     }
 }
-```
+
 
