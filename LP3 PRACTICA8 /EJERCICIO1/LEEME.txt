@@ -1,0 +1,39 @@
+EJERCICIO 1 - MENU DE ESTUDIANTES (Java + SQLite + JDBC)
+=========================================================
+
+CONTENIDO
+  MenuEstudiantes.java   Programa completo, con comentarios.
+  LEEME.txt              Este archivo.
+
+REQUISITO: EL CONECTOR (DRIVER) DE SQLITE
+  Descarga sqlite-jdbc-3.42.0.0.jar desde:
+  https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc/3.42.0.0
+  (boton "jar") y guardalo en esta misma carpeta.
+
+COMO EJECUTARLO EN ECLIPSE
+  1. File > New > Java Project.
+  2. Copia MenuEstudiantes.java dentro de la carpeta src.
+  3. Clic derecho en el proyecto > Properties > Java Build Path >
+     Libraries > Add External JARs... > elige sqlite-jdbc-3.42.0.0.jar.
+  4. Clic derecho en MenuEstudiantes.java > Run As > Java Application.
+
+COMO EJECUTARLO POR CONSOLA (con el .jar en la misma carpeta)
+  Windows:
+    javac MenuEstudiantes.java
+    java -cp ".;sqlite-jdbc-3.42.0.0.jar" MenuEstudiantes
+  Linux / Mac:
+    javac MenuEstudiantes.java
+    java -cp ".:sqlite-jdbc-3.42.0.0.jar" MenuEstudiantes
+
+COMO USARLO
+  - Opcion 1 Ingresar, 2 Borrar, 3 Actualizar, 4 Mostrar, 5 Salir.
+  - Al ingresar, borrar o actualizar se pide una clave: 1234
+      Clave correcta   -> COMMIT   (se guarda)
+      Clave incorrecta -> ROLLBACK (se cancela)
+  - Se crea el archivo estudiantes.db en la carpeta donde ejecutes.
+
+CONCEPTOS QUE USA
+  Connection        conexion con la base de datos
+  Statement         ejecutar SQL simple (crear tabla, SELECT)
+  PreparedStatement SQL con parametros (?), mas seguro
+  setAutoCommit(false), commit(), rollback()   transacciones
