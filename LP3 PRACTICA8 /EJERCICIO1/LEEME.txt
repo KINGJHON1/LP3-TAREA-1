@@ -37,3 +37,12 @@ CONCEPTOS QUE USA
   Statement         ejecutar SQL simple (crear tabla, SELECT)
   PreparedStatement SQL con parametros (?), mas seguro
   setAutoCommit(false), commit(), rollback()   transacciones
+
+
+Invoke-WebRequest -Uri "https://repo1.maven.org/maven2/org/xerial/sqlite-jdbc/3.42.0.0/sqlite-jdbc-3.42.0.0.jar" -OutFile "sqlite-jdbc-3.42.0.0.jar"
+Invoke-WebRequest -Uri "https://repo1.maven.org/maven2/org/slf4j/slf4j-api/1.7.36/slf4j-api-1.7.36.jar" -OutFile "slf4j-api-1.7.36.jar"
+
+
+javac -cp ".;sqlite-jdbc-3.42.0.0.jar;slf4j-api-1.7.36.jar" MenuEstudiantes.java
+java -cp ".;sqlite-jdbc-3.42.0.0.jar;slf4j-api-1.7.36.jar" MenuEstudiantes
+
