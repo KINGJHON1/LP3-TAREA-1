@@ -218,3 +218,7 @@ public class AppReproductor extends JFrame {
         SwingUtilities.invokeLater(AppReproductor::new);
     }
 }
+
+
+
+//java -cp C:\Users\Windows\Downloads principal.AppReproductor
